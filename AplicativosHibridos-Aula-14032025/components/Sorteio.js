@@ -1,54 +1,80 @@
 import React, { Component,useState, useEffect } from 'react';
-import { Text, SafeAreaView, StyleSheet } from 'react-native';
-
-// You can import supported modules from npm
-import { Card } from 'react-native-paper';
-
-// or any files within the Snack
-import AssetExample from './components/AssetExample';
-import Elementos from './components/Elementos';
-import Contador from './components/Contador';
-import Sorteio from './components/Sorteio';
-import Menu from './components/Menu';
-import Dados from './components/Dados';
+import { Text, View, StyleSheet, Image, TextInput, Button} from 'react-native';
 
 
-export default function App() {
-
-  const [opcao, setOpcao] = useState("Menu");
 
 
-  async function clickMenu(valorOpcao: React.SetStateAction<string>){
-      console.log(valorOpcao);          
-      //setOpcao(valorOpcao)
-      //console.log(opcao)
-      
+
+
+export default function Sorteio() {
+
+  
+  const [numero,setNumero] = useState(0);
+  const [numeroInicial,setNumeroInicial] = useState(0);
+  const [numeroFinal,setNumeroFinal] = useState(0);
+  
+
+  function handleBotaoSalvar(){
+    //alert('Clicado!')
+    aleatorio = Math.random();
+    quantidade = numeroFinal - numeroInicial + 1;
+    resultado = Math.floor(quantidade*aleatorio) + Number(numeroInicial);
+    setNumero(resultado);
+    
   }
 
-
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Text style={styles.paragraph}>
-        App de Exemplo
+        Sorteio
       </Text>
-      <Card>
-        <Sorteio/>
-      </Card>
-    </SafeAreaView>
+      <Text style={styles.paragraph}>
+        Número Sorteado: {numero}
+      </Text>
+       <TextInput 
+        placeholder={'Número inicial:'} 
+        style={styles.entrada}
+        onChangeText={(texto)=>{setNumeroInicial(texto)}}
+        ></TextInput>
+         <TextInput 
+        placeholder={'Número final:'} 
+        style={styles.entrada}
+        onChangeText={(texto)=>{setNumeroFinal(texto)}}
+        ></TextInput>
+      
+      <View style={styles.botao}>
+        <Button title='Sorteio' onPress={handleBotaoSalvar}></Button>
+      </View>
+      
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ecf0f1',
-    padding: 8,
+    padding: 24,
   },
   paragraph: {
     margin: 24,
-    fontSize: 18,
+    marginTop: 0,
+    fontSize: 14,
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  logo: {
+    height: 128,
+    width: 128,
+  },
+  entrada: {
+    borderWidth:1,
+    alignSelf:'center',
+    width: 128,
+    marginTop:10,
+  },
+  botao: {
+    width: 128,
+    marginTop:10,
   },
 });
